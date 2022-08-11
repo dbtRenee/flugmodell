@@ -1,3 +1,1 @@
-select 
-
- 
+{{ dbtvault.link(var('src_pk'), var('src_fk'), var('source_model'))        }}

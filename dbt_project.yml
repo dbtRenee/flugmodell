@@ -3,7 +3,7 @@
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
 name: 'flugmodell'
-version: '1.0.0'
+version: '1.2.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
@@ -36,3 +36,19 @@ models:
     # Config indicated by + and applies to all files under models/example/
     example:
       +materialized: table
+      links:
+        materialized: incremental
+        origin_link:
+          vars:
+            source_model: 
+            - 'airport_hub' 
+            - 'flight_hub'
+            src_pk: 
+            - 'AIRPORT_ID'
+            - 'FLIGHT_ID'
+            src_fk:
+              - 'AIRPORT_ID'
+              - 'FLIGHT_ID'
+            src_ldts: 'LOADDATE'
+            src_source: 'SOURCE'
+
