@@ -1,4 +1,4 @@
-select {{dbt_utils.surrogate_key (
+select distinct {{dbt_utils.surrogate_key (
     'code'
 )}} as AIRPORT_HK,
 code as AIRPORT_Code,
@@ -6,7 +6,7 @@ code as AIRPORT_Code,
 cast(convert_timezone('Europe/Berlin', current_timestamp())as timestamp) as Load_Date
 from DEV_GLUNDE.RAW_FLUGMODELL.PSA_AIRPORT
 UNION ALL
-select {{dbt_utils.surrogate_key (
+select distinct {{dbt_utils.surrogate_key (
     'origin'
 )}} as AIRPORT_HK,
 origin as AIRPORT_Code,
@@ -15,7 +15,7 @@ cast(convert_timezone('Europe/Berlin', current_timestamp())as timestamp) as Load
 from DEV_GLUNDE.RAW_FLUGMODELL.PSA_ONTIME
 WHERE ORIGIN NOT IN (SELECT code FROM DEV_GLUNDE.RAW_FLUGMODELL.PSA_AIRPORT)
 UNION ALL
-select {{dbt_utils.surrogate_key (
+select distinct {{dbt_utils.surrogate_key (
     'DEST'
 )}} as AIRPORT_HK,
 dest as AIRPORT_Code,
