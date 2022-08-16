@@ -10,6 +10,6 @@ FLIGHT_NUMBER_MARKETING_AIRLINE as FLIGHT_NUMBER,
 FLIGHTDATE as FLIGHT_DATE,
 ORIGIN as ORIGIN, 
 DEST as DESTINATION,
-'PSA_ONETIME' as Record_Source,
+'PSA_ONTIME' as Record_Source,
 cast(convert_timezone('Europe/Berlin', current_timestamp())as timestamp) as Load_Date
 from DEV_GLUNDE.RAW_FLUGMODELL.PSA_ONTIME
