@@ -1,15 +1,25 @@
-select FLIGHT_HK,
-   'FLIGHT_Hub' as Record_Source,
+select distinct 
+ {{dbt_utils.surrogate_key (
+    'IATA_CODE_MARKETING_AIRLINE',
+    'FLIGHT_NUMBER_MARKETING_AIRLINE', 
+    'FLIGHTDATE', 
+    'ORIGIN', 
+    'DEST' ,
+    'IATA_CODE_MARKETING_AIRLINE'
+    )}} as Flight2Carrier_HK,
+    {{dbt_utils.surrogate_key (
+    'IATA_CODE_MARKETING_AIRLINE', 
+    'FLIGHT_NUMBER_MARKETING_AIRLINE', 
+    'FLIGHTDATE', 
+    'ORIGIN', 
+    'DEST' 
+    )}} as FLIGHT_HK,
+    {{dbt_utils.surrogate_key (
+    'IATA_CODE_MARKETING_AIRLINE'
+    )}} as CARRIER_HK,
+   'PSA_Ontime' as Record_Source,
     cast(convert_timezone('Europe/Berlin', current_timestamp())as timestamp) as Load_Date
-from {{ ref('flight_hub')}}
+from DEV_GLUNDE.RAW_FLUGMODELL.PSA_ONTIME
 
-select FLIGHT_HK,
-   'FLIGHT_Hub' as Record_Source,
-    cast(convert_timezone('Europe/Berlin', current_timestamp())as timestamp) as Load_Date
-from {{ ref('flight_hub')}}
---UNION ALL
---select 
-   -- CARRIER_HK as Carrier_id,
-   -- 'Carrier_Hub' as Record_Source,
-   -- cast(convert_timezone('Europe/Berlin', current_timestamp())as timestamp) as Load_Date
---from DEV_GLUNDE.dbt_Flugmodell.CARRIER_Hub
+
+
