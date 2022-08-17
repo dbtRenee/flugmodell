@@ -2,11 +2,84 @@
 version: 2
 
 models:
-  - name: stg_airport
-    description: "stage airport"
-models:
-  - name: stg_flight
-    description: "stage airport"
-models:
-  - name: stg_carrier
-    description: "stage airport"
+  - name: airport_hub
+    description: '{{ doc("airport_hub_table_events") }}'
+    columns:
+      - name: airport_hk
+        description: PK, generierter MD5
+        tests:
+          - unique
+          - not_null
+      - name: airport_code
+        description: BK, 3-stelliger AIRPORT_CODE
+        tests:
+          - unique
+          - not_null
+      - name: Record_Source
+        description: Datenherkunft
+      - name: Load_Date
+        description: Zeitpunkt des Ladens   
+
+  - name: carrier_hub
+    description: '{{ doc("carrier_hub_table_events") }}'
+    columns:
+      - name: carrier_hk
+        description: PK, generierter MD5
+        tests:
+          - unique
+          - not_null
+      - name: carrier_code
+        description: BK, 2 bis 3-stelliger CARRIER_CODE
+        tests:
+          - unique
+          - not_null
+      - name: Record_Source
+        description: Datenherkunft
+      - name: Load_Date
+        description: Zeitpunkt des Ladens   
+  
+  - name: flight_hub
+    description: '{{ doc("flight_hub_table_events") }}' 
+    columns:
+      - name: flight_hk
+        description: PK, generierter MD5
+        tests:
+          - unique
+          - not_null
+      - name: flight_airline_code
+        description: BK, 2 stelliger CARRIER_CODE
+        tests:
+          - unique
+          - not_null
+      - name: flight_number
+        description: Flugnummer
+      - name: flight_date
+        description: Datum des Fluges
+      - name: origin
+        description: Startflughafen
+      - name: destination
+        description: Endflughafen
+      - name: Record_Source
+        description: Datenherkunft
+      - name: Load_Date
+        description: Zeitpunkt des Ladens  
+
+  - name: plane_hub
+    description: '{{ doc("plane_hub_table_events") }}'
+    columns:
+      - name: plane_hk
+        description: PK, generierter MD5
+        tests:
+          - unique
+          - not_null
+      - name: tail_number
+        description: BK, 6 stellige Flugzeug-Nummer
+        tests:
+          - unique
+          - not_null
+      - name: Record_Source
+        description: Datenherkunft
+      - name: Load_Date
+        description: Zeitpunkt des Ladens   
+  
+           
